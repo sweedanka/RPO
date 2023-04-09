@@ -1,7 +1,8 @@
-
 package com.example.backend.models;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "countries")
@@ -21,9 +22,7 @@ public class Country {
     @Column(name = "name")
     public String name;
 
-    @Column(name = "name", nullable = false, unique = true)
-    public String name;
-
+    @OneToMany(mappedBy = "country")
+    public List artists = new ArrayList();
 
 }
-
