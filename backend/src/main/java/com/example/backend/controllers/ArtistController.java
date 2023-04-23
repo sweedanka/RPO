@@ -8,6 +8,8 @@ import com.example.backend.models.Artist;
 import com.example.backend.models.Country;
 import com.example.backend.repositories.*;
 
+import javax.validation.Valid;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
