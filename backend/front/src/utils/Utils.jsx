@@ -1,4 +1,3 @@
-
 class Utils {
 
     saveUser(user) {
@@ -26,6 +25,5 @@ class Utils {
         return JSON.parse(localStorage.getItem('user'))
     }
 }
-
 export default new Utils()
 
