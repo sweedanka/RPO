@@ -1,8 +1,11 @@
 package com.example.backend.models;
 
-import javax.persistence.*;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
+
 import java.util.ArrayList;
 import java.util.List;
+
 
 @Entity
 @Table(name = "countries")
@@ -19,10 +22,18 @@ public class Country {
     @Column(name = "id", updatable = false, nullable = false)
     public long id;
 
-    @Column(name = "name")
+    @Column(name = "name", nullable = false, unique = true)
     public String name;
-
+    @JsonIgnore
     @OneToMany(mappedBy = "country")
-    public List artists = new ArrayList();
+    public List<Artist> artists = new ArrayList<Artist>();
 
+    @Override
+    public String toString() {
+        return "Country{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", artists=" + artists +
+                '}';
+    }
 }

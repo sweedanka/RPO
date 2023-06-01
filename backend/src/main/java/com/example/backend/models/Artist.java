@@ -1,10 +1,6 @@
 package com.example.backend.models;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
-import javax.persistence.*;
-import java.util.List;
-import java.util.ArrayList;
+import jakarta.persistence.*;
 
 @Entity
 @Table(name = "artists")
@@ -30,8 +26,4 @@ public class Artist {
     @ManyToOne()
     @JoinColumn(name = "countryid")
     public Country country;
-
-    @JsonIgnore
-    @OneToMany(mappedBy = "artist")
-    public List<Artist> artists = new ArrayList<Artist>();
 }

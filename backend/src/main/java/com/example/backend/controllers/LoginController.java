@@ -8,22 +8,21 @@ import org.springframework.web.bind.annotation.*;
 import com.example.backend.models.User;
 import com.example.backend.repositories.UserRepository;
 import com.example.backend.tools.Utils;
-import jakarta.validation.Valid;
 
 import java.time.LocalDateTime;
 import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
-
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/auth")
 public class LoginController {
+
     @Autowired
     private UserRepository userRepository;
 
     @PostMapping("/login")
-    public ResponseEntity<Object> login(@Valid @RequestBody Map<String, String> credentials) {
+    public ResponseEntity<Object> login(@RequestBody Map<String, String> credentials) {
         String login = credentials.get("login");
         String pwd = credentials.get("password");
         if (!pwd.isEmpty() && !login.isEmpty()) {
@@ -33,7 +32,7 @@ public class LoginController {
                 String hash1 = u2.password;
                 String salt = u2.salt;
                 String hash2 = Utils.ComputeHash(pwd, salt);
-                if (hash1.equals(hash2)) {
+                if (hash1.toLowerCase().equals(hash2.toLowerCase())) {
                     String token = UUID.randomUUID().toString();
                     u2.token = token;
                     u2.activity = LocalDateTime.now();

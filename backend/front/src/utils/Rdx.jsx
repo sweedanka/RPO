@@ -1,8 +1,9 @@
+import {applyMiddleware, combineReducers, createStore} from "redux";
+import {configureStore} from "@reduxjs/toolkit";
 import Utils from "./Utils";
 
-import {applyMiddleware, combineReducers, legacy_createStore as createStore} from "redux";
-
 /* ACTIONS */
+
 const userConstants = {
     LOGIN: 'USER_LOGIN',
     LOGOUT: 'USER_LOGOUT',
@@ -14,6 +15,7 @@ const alertConstants = {
 };
 
 /* ACTION GENERATORS */
+
 export const userActions = {
     login,
     logout
@@ -23,6 +25,7 @@ function login(user) {
     Utils.saveUser(user)
     return { type: userConstants.LOGIN, user }
 }
+
 function logout() {
     Utils.removeUser()
     return { type: userConstants.LOGOUT }
@@ -31,16 +34,19 @@ function logout() {
 export const alertActions = {
     error,
     clear
-};
+}
+
 function error(msg) {
     return { type: alertConstants.ERROR, msg }
 }
+
 function clear() {
     return { type: alertConstants.CLEAR }
 }
 
-/* REDUСERS */
-let user = Utils.getUser()
+/* REDUCERS */
+
+let user =  Utils.getUser()
 const initialState = user ? { user } : {}
 
 function authentication(state = initialState, action) {
@@ -73,6 +79,6 @@ const rootReducer = combineReducers({
     authentication, alert
 });
 
-export const store = createStore(rootReducer);
+export const store = configureStore({ reducer: rootReducer });
 
 

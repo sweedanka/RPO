@@ -1,29 +1,32 @@
 class Utils {
 
     saveUser(user) {
-        localStorage.setItem('user', JSON.stringify(user))
+        window.sessionStorage.setItem('user', JSON.stringify(user))
     }
 
     removeUser() {
-        localStorage.removeItem('user')
+        window.sessionStorage.removeItem('user')
     }
 
     getToken()
     {
-        let user = JSON.parse(localStorage.getItem('user'))
-        return user && "Bearer " + user.token;
+        let user = JSON.parse(window.sessionStorage.getItem('user'))
+        console.log(user);
+        //return user && "Bearer " + user.token;
+        return user && ("Bearer" + user.token);
     }
 
     getUserName()
     {
-        let user = JSON.parse(localStorage.getItem('user'))
+        let user = JSON.parse(window.sessionStorage.getItem('user'))
         return user && user.login;
     }
 
     getUser()
     {
-        return JSON.parse(localStorage.getItem('user'))
+        return JSON.parse(window.sessionStorage.getItem('user'))
     }
 }
+
 export default new Utils()
 

@@ -18,9 +18,11 @@ import org.springframework.security.web.authentication.AnonymousAuthenticationFi
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.security.web.util.matcher.OrRequestMatcher;
 import org.springframework.security.web.util.matcher.RequestMatcher;
+import com.example.backend.auth.AuthenticationProvider;
 
-import static com.example.backend.auth.JwtDsl.jwtDsl;
+import com.example.backend.auth.JwtDsl;
 import static org.springframework.security.config.Customizer.withDefaults;
+import static com.example.backend.auth.JwtDsl.jwtDsl;
 
 @Configuration
 @EnableWebSecurity
@@ -43,12 +45,13 @@ public class SecurityConfiguration {
                 .and()
                 .exceptionHandling().and()
                 .apply(jwtDsl());
+                http.csrf().disable();
         return http.build();
     }
 
     @Bean
     public WebSecurityCustomizer webSecurityCustomizer() {
-        return (web) -> web.ignoring().requestMatchers("/login");
+        return (web) -> web.ignoring().requestMatchers("auth/login");
     }
 
 }
